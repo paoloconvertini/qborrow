@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd" default-lazy-init="false">
+
+	<!-- ********************************************* -->
+	<!-- Validator -->
+	<bean id="oggettoValidator" class="it.quix.academy.qborrow.core.validation.OggettoValidator" init-method="init"/>
+	
+	<bean id="oggettoSearchValidator" class="it.quix.academy.qborrow.core.validation.OggettoSearchValidator" init-method="init"/>
+
+	<bean id="prestitoValidator" class="it.quix.academy.qborrow.core.validation.PrestitoValidator" init-method="init"/>
+	
+	<bean id="prestitoSearchValidator" class="it.quix.academy.qborrow.core.validation.PrestitoSearchValidator" init-method="init"/>
+
+	<bean id="soggettoValidator" class="it.quix.academy.qborrow.core.validation.SoggettoValidator" init-method="init"/>
+	
+	<bean id="soggettoSearchValidator" class="it.quix.academy.qborrow.core.validation.SoggettoSearchValidator" init-method="init"/>
+
+</beans>
