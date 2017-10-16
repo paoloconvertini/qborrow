@@ -23,4 +23,8 @@ public class SoggettoDAO extends SoggettoAbstractDAO {
         }
     }
 
+    public void init() {
+        log.info("soggetto.dao da loggare");
+    }
+
 }

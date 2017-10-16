@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="mailServiceCutom" class="it.quix.academy.qborrow.mail.MailServiceCustom"
+		init-method="init">
+		<property name="mittente">
+			<value>paolo.convertini@gmail.com</value>
+		</property>
+		<property name="mailSenderCustom" ref="mailSenderCustom">
+		</property>
+	</bean>
+	<bean id="mailSenderCustom" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>smtp.gmail.com</value>
+		</property>
+		<property name="port">
+			<value>587</value>
+		</property>
+		<property name="protocol">
+			<value>smtp</value>
+		</property>
+		<property name="username">
+			<value>paolo.convertini@gmail.com</value>
+		</property>
+		<property name="password">
+			<value></value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.quitwait">false</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

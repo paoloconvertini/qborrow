@@ -11,4 +11,20 @@ public class OggettoSearch extends OggettoAbstractSearch {
 
     private static final long serialVersionUID = 7849310619150714324L;
 
+    private Boolean isInPrestito;
+
+    /**
+     * @return the isInPrestito
+     */
+    public Boolean getIsInPrestito() {
+        return isInPrestito;
+    }
+
+    /**
+     * @param isInPrestito the isInPrestito to set
+     */
+    public void setIsInPrestito(Boolean isInPrestito) {
+        this.isInPrestito = isInPrestito;
+    }
+
 }

@@ -64,6 +64,18 @@ public class QborrowManager {
         return list;
     }
 
+    /**
+     * Funzione per ottenere la lista dei miei oggetti.
+     * 
+     * @param oggettoSearch
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List<Oggetto> getMieiOggettiList(OggettoSearch oggettoSearch) {
+        List<Oggetto> list = daoFactory.getOggettoDAO().getMieOggettiList(oggettoSearch);
+        return list;
+    }
+
     @Transactional(readOnly = true)
     public List<Oggetto> getOggettoListBySoggetto(String proprietario_username) {
         List<Oggetto> list = daoFactory.getOggettoDAO().getOggettoListByProprietario(proprietario_username);
@@ -82,6 +94,20 @@ public class QborrowManager {
     @Transactional(readOnly = true)
     public Long countOggetto(OggettoSearch oggettoSearch) {
         return daoFactory.getOggettoDAO().count(oggettoSearch);
+    }
+
+    /**
+     * Returns the number of Oggetto that satisfy conditions passed in
+     * oggettoSearch parameter
+     * 
+     * @param oggettoSearch search model that contains the filters to use
+     * @return the number of Oggetto found
+     * @see OggettoSearch
+     * @see Oggetto
+     */
+    @Transactional(readOnly = true)
+    public Long countMieiOggetti(OggettoSearch oggettoSearch) {
+        return daoFactory.getOggettoDAO().countMieiOggetti(oggettoSearch);
     }
 
     /**

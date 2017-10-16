@@ -154,6 +154,16 @@ public class Oggetto extends QborrowAbstractModel implements Serializable {
     private String proprietario_username;
 
     /**
+     * indica se l'oggetto è prestato
+     */
+    private boolean isOggettoPrestato = false;
+
+    /**
+     * Se l'oggetto è in prestito vedremo i dettagli del prestito
+     */
+    private Prestito prestito;
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      * The equals method implements an equivalence relation on non-null object references:
      * <ul>
@@ -581,6 +591,34 @@ public class Oggetto extends QborrowAbstractModel implements Serializable {
 
     public void setProprietarioJdbcAlreadyChecked(boolean proprietarioJdbcAlreadyChecked) {
         this.proprietarioJdbcAlreadyChecked = proprietarioJdbcAlreadyChecked;
+    }
+
+    /**
+     * @return the isOggettoPrestato
+     */
+    public boolean isOggettoPrestato() {
+        return isOggettoPrestato;
+    }
+
+    /**
+     * @param isOggettoPrestato the isOggettoPrestato to set
+     */
+    public void setOggettoPrestato(boolean isOggettoPrestato) {
+        this.isOggettoPrestato = isOggettoPrestato;
+    }
+
+    /**
+     * @return the prestito
+     */
+    public Prestito getPrestito() {
+        return prestito;
+    }
+
+    /**
+     * @param prestito the prestito to set
+     */
+    public void setPrestito(Prestito prestito) {
+        this.prestito = prestito;
     }
 
 }

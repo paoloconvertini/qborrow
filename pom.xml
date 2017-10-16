@@ -121,7 +121,12 @@
   			<artifactId>cssparser</artifactId>
   			<version>360</version>
 		</dependency>
-		  
+		<dependency>
+			<groupId>mysql</groupId>
+  			<artifactId>mysql-connector-java</artifactId>
+  			<version>5.1.44</version>
+  			<scope>test</scope>
+		</dependency>		  
 
 	</dependencies>
 
