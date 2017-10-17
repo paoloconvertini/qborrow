@@ -8,6 +8,9 @@
 <s:url id="oggettoUrl" namespace="/" action="oggetto" escapeAmp="false" includeParams="none">
 	<s:param name="task">mainPage</s:param>
 </s:url>
+<s:url id="mieiOggettiUrl" namespace="/" action="oggetto" escapeAmp="false" includeParams="none">
+	<s:param name="task">mieiOggetti</s:param>
+</s:url>
 <s:url id="prestitoUrl" namespace="/" action="prestito" escapeAmp="false" includeParams="none">
 	<s:param name="task">mainPage</s:param>
 </s:url>
@@ -28,6 +31,11 @@
 	<li class="framework-sidebar-menu-element qtext-left <% if("oggetto".equals(request.getParameter("menuActive"))) { %>framework-sidebar-menu-element-active<% } %>">
 		<a class="framework-sidebar-menu-element-link" href="<s:property value="#oggettoUrl" escape="false" />">
 			<i class='fa fa-dot-circle-o fa-lg'></i><span style="display:inline-block;font-size:12px;">&nbsp;oggetto</span>
+		</a>
+	</li>
+		<li class="framework-sidebar-menu-element qtext-left <% if("oggetto".equals(request.getParameter("menuActive"))) { %>framework-sidebar-menu-element-active<% } %>">
+		<a class="framework-sidebar-menu-element-link" href="<s:property value="#mieiOggettiUrl" escape="false" />">
+			<i class='fa fa-dot-circle-o fa-lg'></i><span style="display:inline-block;font-size:12px;">&nbsp;Miei Oggetti</span>
 		</a>
 	</li>
 	<li class="framework-sidebar-menu-element qtext-left <% if("prestito".equals(request.getParameter("menuActive"))) { %>framework-sidebar-menu-element-active<% } %>">

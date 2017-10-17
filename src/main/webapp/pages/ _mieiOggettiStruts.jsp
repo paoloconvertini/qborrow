@@ -2,7 +2,7 @@
 <%@ taglib prefix="qs2" uri="/quix-strut2-tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<form name="forms.oggettoListForm" novalidate ng-init="list();">
+<form name="forms.oggettoListForm" novalidate ng-init="listMieiOggetti();">
 	<div class="box box-framework">
 		<div class="box-header with-border">
 			<div class="qrow" style="margin: 1px 10px 10px 6px;display: inline-block;" ng-cloak>
@@ -62,6 +62,14 @@
 						</div>
 					</div>
 				</div>
+					<div class="qcol-xs-12 qcol-sm-12 qcol-md-6" ng-class="{'qhas-error': forms.oggettoListForm.isInPrsetito.$invalid}">
+						<label for="isInPrestito"><s:text name="oggetto.search.isInPrestito"/>:</label>
+						<select id="isInPrestito" name="isInPrestito" class="qform-control" ng-model="scopeController.search.isInPrestito">
+							<option></option>
+							<option value="true">In prestito</option>
+							<option value="false">Non in prestito</option>
+						</select>
+					</div>
 				<div class="qcol-xs-12 qcol-sm-12 qcol-md-6" ng-class="{'qhas-error': forms.oggettoListForm.categoria.$invalid}">
 					<label for="categoria"><s:text name="oggetto.search.categoria"/>:</label>
 					<div>
@@ -92,44 +100,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="qrow">
-				<div class="qcol-xs-12 qcol-sm-12 qcol-md-6" ng-class="{'qhas-error': forms.oggettoListForm.proprietario.$invalid}">
-					<label for="proprietario"><s:text name="oggetto.search.proprietario"/>:</label>
-					<div>
-						<span class="quix-popup-search-field">      
-			              	<div class="quix-popup-search-field-container">
-				              	<div>
-				              		<div class="quix-popup-search-field-label">{{scopeController.search.proprietario_description}}</div>
-				             		<div class="quix-popup-search-field-icon">
-										<i class="fa fa-times fa-lg" ng-click="qxResetPopupField(scopeController.search, 'proprietario')"></i>
-				             		</div>
-				             		<div class="quix-popup-search-field-icon">
-										<i class="fa fa-search fa-lg" ng-click="openPopupField('Soggetto', scopeController.search, 'proprietario', 'username', 'username')"></i>
-				             		</div>
-				             	</div>
-			              	</div>  
-			           </span>
-						<div ng-messages="forms.oggettoListForm.proprietario.$error" role="alert">
-						  	<div ng-message="notNull"><s:text name="error.notNull"/></div>
-						  	<div ng-message="invalidAK"><s:text name="error.invalidAK"/></div>
-						  	<div ng-message="notValid"><s:text name="error.notValid"/></div>
-						  	<div ng-message="lenght"><s:text name="error.lenght"/></div>
-						  	<div ng-message="dateToBeforeDateFrom"><s:text name="error.dateToBeforeDateFrom"/></div>
-						  	<div ng-message="fieldToBeforeFieldFrom"><s:text name="error.fieldToBeforeFieldFrom"/></div>
-						  	<div ng-message="notUnique"><s:text name="error.notUnique"/></div>
-						  	<div ng-message="min"><s:text name="error.min"/></div>
-						  	<div ng-message="max"><s:text name="error.max"/></div>
-						  	<div ng-message="ognl"><s:text name="error.ognl"/></div>
-						  	<div ng-message="pattern"><s:text name="error.pattern"/></div>
-						  	<div ng-message="notBlank"><s:text name="error.notBlank"/></div>
-						  	<div ng-message="qvpattern.message"><s:text name="error.qvpattern.message"/></div>
-						  	<div ng-message="string.length"><s:text name="error.string.length"/></div>
-						</div>
-					</div>
-				</div>	                		
 		</div>
 		<div class="box-footer qtext-center" ng-show="filtriEspansi">
-			<button ng-click="filtriEspansi = false;search();" class="qbtn btn-framework-color"><i class="fa fa-search"></i>&nbsp;<s:text name="button.search"/></button>
+			<button ng-click="filtriEspansi = false;searchMieiOggetti();" class="qbtn btn-framework-color"><i class="fa fa-search"></i>&nbsp;<s:text name="button.search"/></button>
 			<button ng-click="resetSearch()" class="qbtn btn-framework-color"><i class="fa fa-undo"></i>&nbsp;<s:text name="button.reset"/></button>
 		</div>
 	</div>
@@ -175,23 +148,29 @@
     	<table class="qtable qtable-hover">
 			<thead>
 				<tr>
-					<th class="qtext-right"><s:text name="oggetto.list.id"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.titolo"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.descrizione"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.immagine"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.categoria"/></th>
-					<th class="qtext-center"><s:text name="oggetto.list.dataUltimaModifica"/></th>
+					<th class="qtext-left"><s:text name="oggetto.list.inPrestito"/></th>
+					<th class="qtext-left"><s:text name="oggetto.list.beneficiario"/></th>
+					<th class="qtext-left"><s:text name="oggetto.list.dataScadenza"/></th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="row in scopeController.result.list">
-					<td class="qtext-right" nowrap="nowrap">{{ row.id }}</td>
 					<td>{{ row.titolo }}</td>
 					<td>{{ row.descrizione }}</td>
-					<td>{{ row.immagine }}</td>
 					<td>{{ row.categoria | sysattribute:'QBO001_categoria' }}</td>
-					<td class="qtext-center" nowrap="nowrap">{{ row.dataUltimaModifica  | date:"<s:text name="format.date3" />" }}</td>
+					<td ng-if="row.oggettoPrestato == true">
+						<i class="fa fa-check qtext-success" aria-hidden="true"></i>
+					</td>
+						<td ng-if="row.oggettoPrestato == false">
+						<i class="fa fa-times qtext-danger" aria-hidden="true"></i>
+					</td>
+						<td>{{ row.prestito.soggettoBeneficiario.nome }} {{ row.prestito.soggettoBeneficiario.cognome }}</td>
+					
+					<td class="qtext-left" >{{ row.prestito.dataScadenza  | date:"<s:text name="format.date4" />"}}</td>
 					<td class="qtext-right">
 						<div class="qbtn-group" ng-hide="popup">
 		                  	<button class="qbtn btn-framework-color" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button>

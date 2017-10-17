@@ -34,6 +34,7 @@ public class OggettoDAO extends OggettoAbstractDAO {
 
     public OggettoDAO(DataSource dataSource) {
         super(dataSource);
+
         if (log.isDebugEnabled()) {
             log.debug("OggettoDAO initialized!");
         }

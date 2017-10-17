@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Qborrow xmlns:tns="http://qborrow.it/test" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://qborrow.it/test schema.xsd">
+	<tns:Soggetto>
+		<tns:username>
+			giovanni.bianchi		
+		</tns:username>
+		<tns:email>
+			giovanni.bianchi@gmail.com
+		</tns:email>
+		<tns:nome>Giovanni</tns:nome>
+		<tns:cognome>Bianchi</tns:cognome>
+		<tns:dataUltimaModifica>
+			2001-12-31T12:00:00
+			</tns:dataUltimaModifica>
+	</tns:Soggetto>
+	
+	<tns:Oggetto>
+		<tns:id>23</tns:id>
+		<tns:proprietario>Giovanni Bianchi</tns:proprietario>
+		<tns:dataUltimaModifica>2017-10-17T13:13:09</tns:dataUltimaModifica>
+	</tns:Oggetto>
+	
+	<tns:Prestito>
+		<tns:beneficiario>paolo.convertini</tns:beneficiario>
+		<tns:oggettoPrestato>23</tns:oggettoPrestato>
+		<tns:dataPrestito>2017-10-15</tns:dataPrestito>
+		<tns:dataScadenza>2017-11-18</tns:dataScadenza>
+	</tns:Prestito>
+</tns:Qborrow>
