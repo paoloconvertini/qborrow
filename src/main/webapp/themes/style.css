@@ -1,0 +1,198 @@
+/* Qborrow styles */
+
+@font-face {
+			    font-family: 'opensansregular';
+			    src: url('../fonts/OpenSans-Regular.ttf');
+			  	font-weight: normal;
+			    font-style: normal;
+			}
+			
+@font-face {
+			    font-family: 'opensansregular';
+			    src: url('../fonts/OpenSans-Bold.ttf');
+			  	font-weight: bold;
+			    font-style: normal;
+			}
+			
+@font-face {
+			    font-family: 'opensansregular';
+			    src: url('../fonts/OpenSans-Italic.ttf');
+			  	font-weight: normal;
+			    font-style: italic;
+			}
+			
+@font-face {
+			    font-family: 'titilliumregular';
+			    src: url('../fonts/TitilliumWeb-Regular.ttf');
+			  	font-weight: normal;
+			    font-style: normal;
+			}
+			
+@font-face {
+			    font-family: 'titilliumregular';
+			    src: url('../fonts/TitilliumWeb-Bold.ttf');
+			  	font-weight: bold;
+			    font-style: normal;
+			}
+			
+@font-face {
+			    font-family: 'titilliumregular';
+			    src: url('../fonts/TitilliumWeb-Light.ttf');
+			  	font-weight: 100;
+			    font-style: normal;
+			}
+
+body {
+	font-family: 'opensansregular', sans-serif;
+	font-weight: bold;
+}
+
+body h1 ,
+body h2 , 
+body h3 ,
+body h4 ,
+body h5 , 
+body h6 {
+font-family: 'titilliumregular', sans-serif;
+font-weight: 100;
+}
+
+/* Navigation menu */
+
+.qnav .qopen > a, .qnav .qopen > a:hover, .qnav .qopen > a:focus {
+	background: none;
+}
+
+.qnavbar-default {
+	border-radius: 0px;
+	background: #2574a9;
+}
+
+.qnavbar-default .qnav li a.framework-sidebar-menu-element-link {
+	color:white;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+
+	.qnavbar-nav {
+		margin-left: 8%;
+		margin-top: 6px;
+	}
+
+}
+
+.qnav .frameworkHeaderRightCellUserDiv {
+	border-left: none;
+}
+
+.qnav .frameworkHeaderRightCellUserDiv .user-menu-link {
+	color: white;
+	
+}
+
+.qnav .frameworkHeaderRightCellUserDiv .user-menu-link .fa-user {
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	margin-right: 15px;
+	border:1px solid white;
+	border-radius: 100px;
+	padding: 5px;
+}
+
+.qnavbar-brand {
+	height: auto;
+}
+
+.qnavbar-right {
+	margin-top: 0px;
+}
+
+.qnavbar-default .qnavbar-toggle .qicon-bar {
+	background-color: white;
+}
+
+.qnavbar-default .qnavbar-toggle:hover .qicon-bar {
+	background-color: #888;
+}
+
+.qnavbar-default .qnavbar-toggle:hover {
+	cursor: pointer;
+}
+
+
+/* Main Content */
+
+.frameworkMainCell {
+	background: none;
+	display: block;
+	min-height: 900px;
+}
+
+
+.fa-archive {
+	margin-top: 5px;
+	display: block;
+	text-align: center;
+	font-size: 40px;
+}
+
+.fa-university {
+	margin-top: 5px;
+	display: block;
+	text-align: center;
+	font-size: 40px;
+}
+
+.fa-male {
+	margin-top: 5px;
+	display: block;
+	text-align: center;
+	font-size: 40px;
+}
+
+.fa-briefcase {
+	margin-top: 5px;
+	display: block;
+	text-align: center;
+	font-size: 40px;
+}
+
+.qcol-md-3 .conteneir-fast-menu {
+	border: 1px solid #d6d6d6;
+	color: #949494;
+	text-align: center;
+	font-size: 24px;
+	padding: 10px;
+}
+
+.qcol-md-3 .conteneir-fast-menu a {
+	color:  #949494;
+}
+
+/* Footer */
+
+.copy {
+	padding: 25px 0px;
+	background: #efefef;
+	font-size: 12px;
+	text-align: center;
+	color:#949494;
+	letter-spacing: 1px;
+	border-top: 1px solid #d6d6d6;
+	
+}
+
+.copy a {
+color:#949494;
+text-decoration: underline;
+transition:color 0.5s;
+text-transform: uppercase;
+}
+
+.copy a:hover {
+color:#449ef1;
+}

@@ -53,46 +53,32 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="qnav qnavbar-nav">
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#homeUrl" escape="false" />"> <i
-						class='fa fa-home fa-lg'></i><span
-						style="display: inline-block; font-size: 12px;">&nbsp;<s:text
+					href="<s:property value="#homeUrl" escape="false" />"><s:text
 								name="menu.home" /></span>
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#soggettoUrl" escape="false" />"> <i
-						class='fa fa-dot-circle-o fa-lg'></i><span
-						style="display: inline-block; font-size: 12px;">&nbsp;soggetto</span>
+					href="<s:property value="#soggettoUrl" escape="false" />">Soggetto
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#oggettoUrl" escape="false" />"> <i
-						class='fa fa-dot-circle-o fa-lg'></i><span
-						style="display: inline-block; font-size: 12px;">&nbsp;oggetto</span>
+					href="<s:property value="#oggettoUrl" escape="false" />">Oggetto
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#prestitoUrl" escape="false" />"> <i
-						class='fa fa-dot-circle-o fa-lg'></i><span
-						style="display: inline-block; font-size: 12px;">&nbsp;prestito</span>
+					href="<s:property value="#prestitoUrl" escape="false" />">Prestito
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#mieiOggettiUrl" escape="false" />"> <i
-						class='fa fa-dot-circle-o fa-lg'></i><span
-						style="display: inline-block; font-size: 12px;">&nbsp;Miei
-							Oggetti</span>
+					href="<s:property value="#mieiOggettiUrl" escape="false" />">Miei
+							Oggetti
 				</a></li>
 			</ul>
 			<ul class="qnav qnavbar-nav qnavbar-right">
 				<li>
-					<div class="frameworkHeaderRightCell">
 
-
-						<div class="frameworkHeaderRightCellUserDiv qpull-right"
-							style=" background: url('<qs2:imagesPath nome="/user.jpg" version="2"/>') left center no-repeat; background-size: 30px 30px; min-width: 30px;">
-
+						<div class="frameworkHeaderRightCellUserDiv qpull-right">
 							<a href="#" class="qdropdown-toggle user-menu-link"
 								data-toggle="qdropdown">
-								<div
-									style="display: inline-block; padding-left: 30px; padding-top: 10px;">
-									<span class="hidden-xs"><s:property
+								<div style="display: inline-block; padding-left: 30px; padding-top: 10px;">
+								
+									<i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs"><s:property
 											value="userContext.getUserText()" /></span>
 								</div>
 							</a>
@@ -130,7 +116,7 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+					
 				</li>
 			</ul>
 		</div>

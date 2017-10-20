@@ -19,44 +19,51 @@
 					</jsp:include> --%>
 				<!-- 				</div> -->
 				<div class="frameworkMainCell">
-					<div class="qpage-header qtext-warning">
+					<div class="qpage-header">
 						<h1>
-							***ATTENZIONE!<br>Questa pagina di HOME &egrave; stata
-							generata automaticamente.<br> Occorre effetuare un restyling
-							grafico per renderla conforme allo scopo per cui &egrave; stato
-							creato il progetto.
+							Benveuto,
+							<s:property value="userContext.realUserDn" />
 						</h1>
 					</div>
 					<div class="qrow">
-						<div class="qcol-xs-12">
-							<ul class="qnav qnav-pills qnav-stacked">
-								<s:url id="oggettoUrl" action="oggetto" escapeAmp="false"
-									includeParams="none">
-									<s:param name="task">mainPage</s:param>
-								</s:url>
-								<li><s:a href="%{#oggettoUrl}">Oggetto</s:a></li>
-								<s:url id="prestitoUrl" action="prestito" escapeAmp="false"
-									includeParams="none">
-									<s:param name="task">mainPage</s:param>
-								</s:url>
-								<li><s:a href="%{#prestitoUrl}">Prestito</s:a></li>
-								<s:url id="soggettoUrl" action="soggetto" escapeAmp="false"
-									includeParams="none">
-									<s:param name="task">mainPage</s:param>
-								</s:url>
-								<li><s:a href="%{#soggettoUrl}">Soggetto</s:a></li>
-								<s:url id="frmkUrl" namespace="/framework" action="admin"
-									escapeAmp="false" includeParams="none">
-									<s:param name="version">2</s:param>
-								</s:url>
-								<li><s:a href="%{#frmkUrlUrl}">Amministrazione Framework</s:a></li>
-							</ul>
+					
+						<div class="qcol-md-3">
+							<div class="conteneir-fast-menu"><s:url id="oggettoUrl" action="oggetto" escapeAmp="false"
+								includeParams="none">
+								<s:param name="task">mainPage</s:param>
+							</s:url><i class="fa fa-archive" aria-hidden="true"></i>
+							<s:a href="%{#oggettoUrl}">Oggetto</s:a></div>
 						</div>
+						
+						<div class="qcol-md-3">
+							<div class="conteneir-fast-menu"><s:url id="prestitoUrl" action="prestito" escapeAmp="false"
+								includeParams="none">
+								<s:param name="task">mainPage</s:param>
+							</s:url><i class="fa fa-university" aria-hidden="true"></i>
+							<s:a href="%{#prestitoUrl}">Prestito</s:a></div>
+						</div>
+						
+						<div class="qcol-md-3">
+							<div class="conteneir-fast-menu"><s:url id="soggettoUrl" action="soggetto" escapeAmp="false"
+								includeParams="none">
+								<s:param name="task">mainPage</s:param>
+							</s:url><i class="fa fa-male" aria-hidden="true"></i>
+							<s:a href="%{#soggettoUrl}">Soggetto</s:a></div>
+						</div>
+						
+						<div class="qcol-md-3">
+							<div class="conteneir-fast-menu"><s:url id="frmkUrl" namespace="/framework" action="admin"
+								escapeAmp="false" includeParams="none">
+								<s:param name="version">2</s:param>
+							</s:url><i class="fa fa-briefcase" aria-hidden="true"></i>
+							<s:a href="%{#frmkUrlUrl}">Amministrazione</s:a></div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
-				</div>
-			<jsp:include page="_footer.jsp" />
 		</div>
+		<jsp:include page="_footer.jsp" />
+	</div>
 </body>
 </html>
