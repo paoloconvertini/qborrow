@@ -18,14 +18,13 @@ public class SoggettoTestWsCli {
             URL url = new URL("http://localhost:9098/ws/soggetti?wsdl");
 
             QName qname = new QName("http://ws.web.qborrow.academy.quix.it/", "SoggettoWsImplService");
- 
+
             Service service = Service.create(url, qname);
 
             SoggettoWs cli = service.getPort(SoggettoWs.class);
-            
-    		System.out.println(cli.getSoggetto().toString());
-    		
-            
+
+            System.out.println(cli.getSoggetto().toString());
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

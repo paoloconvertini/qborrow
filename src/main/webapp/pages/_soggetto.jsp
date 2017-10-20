@@ -214,7 +214,7 @@
 					<td class="qtext-center" nowrap="nowrap">{{ row.dataUltimaModifica  | date:"<s:text name="format.date3" />" }}</td>
 					<td class="qtext-right">
 						<div class="qbtn-group" ng-hide="popup">
-		                  	<button class="qbtn btn-framework-color" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button>
+		                  	<button class="qbtn btn-framework-color" ng-click="editWithCompleanno(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button>
 		                   	<button data-toggle="qdropdown" class="qbtn btn-framework-color qdropdown-toggle" type="button" aria-expanded="false">
 		                       	<span class="qcaret"></span>
 		                       	<span class="qsr-only"></span>

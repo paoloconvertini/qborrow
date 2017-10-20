@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 import java.io.IOException;
 import java.io.File;
@@ -15,6 +16,7 @@ import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
 import javax.annotation.Resource;
+
 import it.quix.framework.core.validation.InvalidConstraintImpl;
 import it.quix.framework.core.validation.api.InvalidConstraint;
 import it.quix.framework.core.validation.exception.ValidationException;
@@ -30,6 +32,7 @@ import it.quix.framework.web.result.IncludeResultAware;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -48,5 +51,38 @@ public class SoggettoManagerAction extends SoggettoAbstractManagerAction {
      * Log
      */
     private static Log log = LogFactory.getLog(SoggettoManagerAction.class);
+
+    /**
+     * Edit task.
+     * This method edit one soggetto instance.
+     */
+    public String editWithCompleanno() {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        try {
+            Soggetto soggetto = getQborrowManager().getSoggettoWithCompleanno(getSoggetto().getUsername());
+            return manageSerialize(soggetto);
+        } catch (Exception e) {
+            return manageException("Error on edit Soggetto", e);
+        }
+    }
+
+    /**
+     * Save task.
+     * This method save one soggetto instance.
+     */
+    public String saveWithCompleanno() {
+        if (getSoggetto() == null) {
+            // New Soggetto and all fields are empty. Create a new empty Soggetto to avoid NPE on validators.
+            setSoggetto(new Soggetto());
+        }
+        try {
+            getQborrowManager().saveSoggettoWithCompleanno(getSoggetto());
+            return manageOkMessage();
+        } catch (ValidationException e) {
+            return manageValidationError(e.getInvalidConstraints(), "save");
+        } catch (Exception e) {
+            return manageException("Error on save Soggetto", e);
+        }
+    }
 
 }

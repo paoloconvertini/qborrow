@@ -58,14 +58,13 @@ public class TestRs {
         this.qborrowManager = qborrowManager;
     }
 
-     @POST
-     public Oggetto putOggetto(Oggetto oggetto) {
-     return oggetto;
-     }
-     
-    
-     @DELETE
-     public String deleteOggetto() {
-     return "{\"message\": \"OK\"}";
-     }
+    @POST
+    public Oggetto putOggetto(Oggetto oggetto) {
+        return oggetto;
+    }
+
+    @DELETE
+    public String deleteOggetto() {
+        return "{\"message\": \"OK\"}";
+    }
 }

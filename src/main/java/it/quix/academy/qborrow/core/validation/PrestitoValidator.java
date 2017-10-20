@@ -1,15 +1,13 @@
 package it.quix.academy.qborrow.core.validation;
 
+import it.quix.academy.qborrow.core.model.Prestito;
+import it.quix.framework.core.model.UserContext;
+import it.quix.framework.core.validation.api.InvalidConstraint;
+
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import it.quix.framework.core.model.UserContext;
-import it.quix.framework.core.validation.api.InvalidConstraint;
-import it.quix.framework.core.validation.InvalidConstraintImpl;
-
-import it.quix.academy.qborrow.core.model.Prestito;
 
 /**
  * Validator for the Prestito object.

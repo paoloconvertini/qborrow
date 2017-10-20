@@ -561,6 +561,22 @@ public class QborrowManager {
     }
 
     /**
+     * retrieve from persistence system the required Soggetto record
+     * 
+     * @param soggettoId the key to retrieve the soggetto
+     * @return the requested Soggetto record
+     * @throws QborrowException if an unexpected exception occurs or no record
+     *             is found
+     * @see Soggetto
+     */
+    @Transactional(readOnly = true, rollbackFor = { QborrowException.class })
+    public Soggetto getSoggettoWithCompleanno(String username) throws DAOFinderException {
+        Soggetto soggetto = null;
+        soggetto = daoFactory.getSoggettoDAO().getWithCompleanno(username);
+        return soggetto;
+    }
+
+    /**
      * persist the passed Soggetto object to database, previous validation
      * 
      * @param soggetto the object to save
@@ -573,6 +589,21 @@ public class QborrowManager {
     @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
     public Soggetto saveSoggetto(Soggetto soggetto) throws QborrowException, ValidationException {
         return saveSoggetto(soggetto, true);
+    }
+
+    /**
+     * persist the passed Soggetto object to database, previous validation
+     * 
+     * @param soggetto the object to save
+     * @return the persisted object
+     * @throws QborrowException if an unexpected exception occurs during
+     *             operation
+     * @throws ValidationException if input data doesn't satisfy validation
+     * @see Soggetto
+     */
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto saveSoggettoWithCompleanno(Soggetto soggetto) throws QborrowException, ValidationException {
+        return saveSoggettoWithCompleanno(soggetto, true);
     }
 
     /**
@@ -595,6 +626,30 @@ public class QborrowManager {
             createSoggetto(soggetto, validate);
         } else {
             updateSoggetto(soggetto, validate);
+        }
+        return soggetto;
+    }
+
+    /**
+     * persist the passed Soggetto object to database
+     * 
+     * @param soggetto the object to save
+     * @param validate false skip model validation
+     * @return the persisted object
+     * @throws QborrowException if an unexpected exception occurs during
+     *             operation
+     * @throws ValidationException if input data doesn't satisfy validation
+     * @see Soggetto
+     */
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto saveSoggettoWithCompleanno(Soggetto soggetto, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validateSoggetto(soggetto);
+        }
+        if (soggetto.getUsername() == null) {
+            createSoggetto(soggetto, validate);
+        } else {
+            updateSoggettoWithCompleanno(soggetto, validate);
         }
         return soggetto;
     }
@@ -672,6 +727,47 @@ public class QborrowManager {
         try {
 
             daoFactory.getSoggettoDAO().update(soggetto);
+
+            return soggetto;
+        } catch (DAOStoreException ex) {
+            throw new QborrowException(ex, soggetto);
+        }
+    }
+
+    /**
+     * update the passed Soggetto object to database, previous validation
+     * 
+     * @param soggetto the object to update
+     * @return the updated object
+     * @throws QborrowException if an unexpected exception occurs during
+     *             operation
+     * @throws ValidationException if input data doesn't satisfy validation
+     * @see Soggetto
+     */
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto updateSoggettoWithCompleanno(Soggetto soggetto) throws QborrowException, ValidationException {
+        return updateSoggettoWithCompleanno(soggetto, true);
+    }
+
+    /**
+     * update the passed Soggetto object to database
+     * 
+     * @param soggetto the object to update
+     * @param validate false skip model validation
+     * @return the updated object
+     * @throws QborrowException if an unexpected exception occurs during
+     *             operation
+     * @throws ValidationException if input data doesn't satisfy validation
+     * @see Soggetto
+     */
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto updateSoggettoWithCompleanno(Soggetto soggetto, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validateSoggetto(soggetto);
+        }
+        try {
+
+            daoFactory.getSoggettoDAO().updateWithCompleanno(soggetto);
 
             return soggetto;
         } catch (DAOStoreException ex) {
