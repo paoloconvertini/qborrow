@@ -17,6 +17,8 @@ import org.zefer.pd4ml.PD4PageMark;
 
 import javax.annotation.Resource;
 
+import it.quix.framework.core.model.User;
+import it.quix.framework.core.model.UserContext;
 import it.quix.framework.core.validation.InvalidConstraintImpl;
 import it.quix.framework.core.validation.api.InvalidConstraint;
 import it.quix.framework.core.validation.exception.ValidationException;
@@ -53,6 +55,15 @@ public class SoggettoManagerAction extends SoggettoAbstractManagerAction {
     private static Log log = LogFactory.getLog(SoggettoManagerAction.class);
 
     /**
+     * Pagina lista miei oggetti
+     * 
+     * @return
+     */
+    public String profilePage() {
+        return "profilePage";
+    }
+
+    /**
      * Edit task.
      * This method edit one soggetto instance.
      */
@@ -82,6 +93,20 @@ public class SoggettoManagerAction extends SoggettoAbstractManagerAction {
             return manageValidationError(e.getInvalidConstraints(), "save");
         } catch (Exception e) {
             return manageException("Error on save Soggetto", e);
+        }
+    }
+
+    /**
+     * Edit task.
+     * This method edit one soggetto instance.
+     */
+    public String editMyProfile() {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        try {
+            Soggetto soggetto = getQborrowManager().getSoggettoWithCompleanno(getUserContext().getRealUser().getDn());
+            return manageSerialize(soggetto);
+        } catch (Exception e) {
+            return manageException("Error on edit Soggetto", e);
         }
     }
 

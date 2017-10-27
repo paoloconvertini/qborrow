@@ -327,6 +327,30 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         scopeController.promise.success(success).error(_manageError);
     }
     
+    this.editMyProfile = function(scopeController){
+    	var success = function (data) {
+        	if((typeof data) == 'string') {
+        		// Not Managed Server error
+        		_manageError(data, 0);
+        		return;
+        	}
+        	if(data.error == true) {
+        		_manageError(data, 0);
+        		return;
+        	}
+        	scopeController.selectedRow = data;
+        	scopeController.selectedPage = "edit";
+        };
+    	
+        scopeController.promise = $http({ 
+        		method: 'GET', 
+        		url: qborrowConfig.baseUrl + '/soggetto.action?task=editMyProfile', 
+        		//data: quixParamSerializer(scopeController.selectedRow, 'soggetto.'), 
+        		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        scopeController.promise.success(success).error(_manageError);
+     }
+    
      this.deleteSoggetto = function(scopeController, labelService){
     	var success = function (data) {
         	if((typeof data) == 'string') {

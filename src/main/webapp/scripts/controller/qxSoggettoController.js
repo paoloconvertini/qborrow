@@ -7,6 +7,7 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	$scope.scopeController.selectedPage = 'list';
 	$scope.scopeController.search= {};
 	$scope.scopeController.search.page = 1;
+	$scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 	
 	$scope.search = function () {
 		$scope.scopeController.search.order = 0;
@@ -33,9 +34,17 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
 	}
 	
+	$scope.search = function () {
+		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
+	}
+	
 	$scope.edit = function(row){
 		$scope.scopeController.selectedRow = row;
 		qxQborrowHttpService.editSoggetto($scope.scopeController);
+	}
+	
+	$scope.editMyProfile = function(){
+		qxQborrowHttpService.editMyProfile($scope.scopeController);
 	}
 	
 	$scope.editWithCompleanno = function(row){
@@ -81,6 +90,7 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	}
 	
 	$scope.saveWithCompleanno = function(row){
+		SweetAlert.swal("Profilo modificato");
 		qxQborrowHttpService.saveSoggettoWithCompleanno($scope.scopeController, $scope.forms.soggettoEditForm);
 	}
 	

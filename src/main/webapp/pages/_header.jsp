@@ -9,6 +9,10 @@
 	escapeAmp="false">
 </s:url>
 
+<s:url id="profileUrl" action="soggetto" includeParams="none"
+	escapeAmp="false">
+</s:url>
+
 <s:url id="homeUrl" namespace="/" action="home" escapeAmp="false" includeParams="none">
 	<s:param name="version">2</s:param>
 </s:url>
@@ -23,6 +27,9 @@
 </s:url>
 <s:url id="soggettoUrl" namespace="/" action="soggetto" escapeAmp="false" includeParams="none">
 	<s:param name="task">mainPage</s:param>
+</s:url>
+<s:url id="profileUrl" namespace="/" action="soggetto" escapeAmp="false" includeParams="none">
+	<s:param name="task">profilePage</s:param>
 </s:url>
 <s:url id="frmkUrl" namespace="/framework" action="admin" escapeAmp="false" includeParams="none">
 	<s:param name="version">2</s:param>
@@ -102,12 +109,12 @@
 												value="userContext.getUserCreateDate(getText('format.date'))" /></small>
 									</p></li>
 								<li class="user-footer">
-									<div class="qpull-left">
-										<a href=""
-											onclick="javascript:window.open('/puma/mydetailedit.do?dn=<s:property value="userContext.realUserDn"/>', 'detailPuma', 'width=600,height=600,statusbar=no,toolbar=no,scrollbars=no,resizable=yes')"
-											class="qbtn qbtn-default qbtn-flat"><s:text
-												name="header.profile" /></a>
-									</div>
+									<qbutton class="qpull-left">
+										<a href="<s:property value="#profileUrl" escape="false"/>" class="qbtn qbtn-default qbtn-flat"><s:text name="header.profile" /></a>
+									</qbutton>
+
+									
+									
 									<div class="qpull-right">
 										<a href="<s:property value="#logoutUrl" escape="false" />"
 											class="qbtn qbtn-default qbtn-flat"><s:text

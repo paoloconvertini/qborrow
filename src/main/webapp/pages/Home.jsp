@@ -26,7 +26,14 @@
 						</h1>
 					</div>
 					<div class="qrow">
-					
+						<div class="qcol-md-3">
+							<div class="conteneir-fast-menu"><s:url id="soggettoUrl" action="soggetto" escapeAmp="false"
+								includeParams="none">
+								<s:param name="task">mainPage</s:param>
+							</s:url><i class="fa fa-male" aria-hidden="true"></i>
+							<s:a href="%{#soggettoUrl}">Soggetto</s:a></div>
+						</div>
+						
 						<div class="qcol-md-3">
 							<div class="conteneir-fast-menu"><s:url id="oggettoUrl" action="oggetto" escapeAmp="false"
 								includeParams="none">
@@ -44,19 +51,11 @@
 						</div>
 						
 						<div class="qcol-md-3">
-							<div class="conteneir-fast-menu"><s:url id="soggettoUrl" action="soggetto" escapeAmp="false"
-								includeParams="none">
-								<s:param name="task">mainPage</s:param>
-							</s:url><i class="fa fa-male" aria-hidden="true"></i>
-							<s:a href="%{#soggettoUrl}">Soggetto</s:a></div>
-						</div>
-						
-						<div class="qcol-md-3">
 							<div class="conteneir-fast-menu"><s:url id="frmkUrl" namespace="/framework" action="admin"
 								escapeAmp="false" includeParams="none">
 								<s:param name="version">2</s:param>
 							</s:url><i class="fa fa-briefcase" aria-hidden="true"></i>
-							<s:a href="%{#frmkUrlUrl}">Amministrazione</s:a></div>
+							<s:a href="%{#frmkUrl}">Amministrazione</s:a></div>
 						</div>
 						
 					</div>

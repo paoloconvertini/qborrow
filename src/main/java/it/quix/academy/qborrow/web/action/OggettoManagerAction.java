@@ -58,6 +58,10 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
      */
     private OggettoSearch oggettoSearch = new OggettoSearch();
 
+    private List<Oggetto> mieiOggettiStruts = new ArrayList<Oggetto>();
+
+    private String search;
+
     /**
      * Pagina lista miei oggetti
      * 
@@ -110,6 +114,20 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
     }
 
     /**
+     * Metodo di lista che torna solo i miei oggetti.
+     * This method find oggetto that satisfy search filters.
+     * 
+     * @throws QborrowException if an error occurs
+     */
+    public String listMieiOggettiStruts() throws QborrowException {
+        oggettoSearch = new OggettoSearch();
+        oggettoSearch.setPage(0);
+        oggettoSearch.setRowPerPage(10);
+        mieiOggettiStruts = getQborrowManager().getMieiOggettiList(oggettoSearch);
+        return "listMieiOggettiStruts";
+    }
+
+    /**
      * @return the oggettoSearch
      */
     public OggettoSearch getOggettoSearch() {
@@ -121,6 +139,34 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
      */
     public void setOggettoSearch(OggettoSearch oggettoSearch) {
         this.oggettoSearch = oggettoSearch;
+    }
+
+    /**
+     * @return the mieiOggettiStruts
+     */
+    public List<Oggetto> getMieiOggettiStruts() {
+        return mieiOggettiStruts;
+    }
+
+    /**
+     * @param mieiOggettiStruts the mieiOggettiStruts to set
+     */
+    public void setMieiOggettiStruts(List<Oggetto> mieiOggettiStruts) {
+        this.mieiOggettiStruts = mieiOggettiStruts;
+    }
+
+    /**
+     * @return the search
+     */
+    public String getSearch() {
+        return search;
+    }
+
+    /**
+     * @param search the search to set
+     */
+    public void setSearch(String search) {
+        this.search = search;
     }
 
 }

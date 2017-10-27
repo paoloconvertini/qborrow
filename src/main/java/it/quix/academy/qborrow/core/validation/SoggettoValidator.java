@@ -48,7 +48,7 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-            
+
             int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
             Calendar cal = Calendar.getInstance();
@@ -58,13 +58,13 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
             int yearCompleanno = cal.get(Calendar.YEAR);
 
             int monthCompleanno = cal.get(Calendar.MONTH);
-            
+
             int dayCompleanno = cal.get(Calendar.DAY_OF_MONTH);
 
             if (currentMonth - monthCompleanno < 0) {
                 currentYear = currentYear - 1;
             } else if (currentDay - dayCompleanno < 0) {
-            	currentYear = currentYear - 1;
+                currentYear = currentYear - 1;
             }
 
             if (!soggetto.getDataCompleanno().before(new Date())) {
