@@ -73,7 +73,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 		} else {
 			$scope.scopeController = {};
 		}*/
-		
+		$scope.listSoggetti();
 		$scope.scopeController.selectedRow = row;
 		qxQborrowHttpService.editOggetto($scope.scopeController);
 	}

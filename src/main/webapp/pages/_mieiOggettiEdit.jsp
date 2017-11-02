@@ -120,10 +120,17 @@
 			<div class="qrow">		
 				<div class="qcol-md-6 qcol-sm-6 qcol-xs-12" ng-class="{'qhas-error': forms.oggettoEditForm.soggettoBeneficiario.$invalid}">
 					<label for="soggettoBeneficiario">In prestito a</label>
-					<input id="soggettoBeneficiario" name="soggettoBeneficiario"
+				<!-- 	<input id="soggettoBeneficiario" name="soggettoBeneficiario"
 						ng-model="scopeController.selectedRow.prestito.soggettoBeneficiario"
 						ng-options="option as option.username for option in scopeController.soggettoList"
+						class="qform-control" /> -->
+						
+						<input id="soggettoBeneficiario" name="soggettoBeneficiario"
+						ng-model="scopeController.selectedRow.prestito.soggettoBeneficiario"
+						typeahead="state.username for state in scopeController.result.list | filter:$viewValue" typeahead-min-length='3'
 						class="qform-control" />
+						
+						
 					<div ng-messages="forms.oggettoEditForm.soggettoBeneficiario.$error" role="alert">
 					  	<div ng-message="notNull"><s:text name="error.notNull"/></div>
 					  	<div ng-message="invalidAK"><s:text name="error.invalidAK"/></div>
