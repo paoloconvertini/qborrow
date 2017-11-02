@@ -196,3 +196,24 @@ text-transform: uppercase;
 .copy a:hover {
 color:#449ef1;
 }
+
+.qpad-top-20 {
+	padding-top: 20px
+}
+
+.qpad-right-20 {
+	padding-right: 20px
+}
+
+.qpad-left-40 {
+	padding-left: 40px;
+}
+
+.qlist-group-item {
+	border: none;
+	padding-left: 40px;
+}
+
+.mybtn a {
+	color: white;
+}

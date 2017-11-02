@@ -1,41 +1,23 @@
 var qborrowApp = angular.module('qborrow');
 
-qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', '$modal', 'labelService', 'SweetAlert', 'qborrowConfig', function ($scope, qxQborrowHttpService, $modal, labelService, SweetAlert, qborrowConfig){
-	
-	var _selected;
-	
-	  $scope.ngModelOptionsSelected = function(value) {
-		    if (arguments.length) {
-		      _selected = value;
-		    } else {
-		      return _selected;
-		    }
-		  };
-
-		  $scope.modelOptions = {
-		    debounce: {
-		      blur: 250
-		    },
-		    getterSetter: true
-		  };
-
+qborrowApp.controller('qxNewPrestitoController', ['$scope', 'qxQborrowHttpService', '$modal', 'labelService', 'SweetAlert', 'qborrowConfig', function ($scope, qxQborrowHttpService, $modal, labelService, SweetAlert, qborrowConfig){
 	
 	$scope.forms = {};
 	$scope.scopeController = {}; 
-	$scope.scopeController.selectedPage = 'list';
+	$scope.scopeController.selectedPage = 'edit';
 	$scope.scopeController.search= {};
 	$scope.scopeController.search.page = 1;
+	$scope.dataPrestitoFrom = {};
+	$scope.dataPrestitoTo = {};
+	$scope.dataPrestito = {};
+	$scope.dataScadenzaFrom = {};
+	$scope.dataScadenzaTo = {};
+	$scope.dataScadenza = {};
 	
 	$scope.search = function () {
 		$scope.scopeController.search.order = 0;
 		$scope.scopeController.search.page = 1;
 		$scope.list();
-	}
-	
-	$scope.searchMieiOggetti = function () {
-		$scope.scopeController.search.order = 0;
-		$scope.scopeController.search.page = 1;
-		$scope.listMieiOggetti();
 	}
 	
 	$scope.orderBy = function(orderBy) {
@@ -54,32 +36,21 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	}
 	
 	$scope.list = function () {
-		qxQborrowHttpService.getOggettoList($scope.scopeController, $scope.forms.oggettoListForm);
-	}
-	
-	$scope.listSoggetti = function () {
-		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
-	}
-	
-	$scope.listMieiOggetti = function () {
-		qxQborrowHttpService.getMieiOggettiList($scope.scopeController, $scope.forms.oggettoListForm);
+		qxQborrowHttpService.getPrestitoList($scope.scopeController, $scope.forms.prestitoListForm);
 	}
 	
 	$scope.edit = function(row){
-	/*	if (row.prestito != null) {
-			$scope.scopeController.beneficiario = row.prestito.soggettoBeneficiario.username;
-			$scope.scopeController.dataPrestito = row.prestito.dataPrestito;
-			$scope.scopeController.dataScadenza = row.prestito.dataScadenza;
-		} else {
-			$scope.scopeController = {};
-		}*/
-		
 		$scope.scopeController.selectedRow = row;
-		qxQborrowHttpService.editOggetto($scope.scopeController);
+		qxQborrowHttpService.editPrestito($scope.scopeController);
+	}
+
+	$scope.newPrestito = function(){
+		$scope.scopeController.selectedRow = {};
+		$scope.scopeController.selectedPage = "edit";
 	}
 	
 	$scope.exportXLS = function() {
-		document.location.href =  qborrowConfig.baseUrl + '/oggetto.action?task=exportXls&reset=true&' + quixParamSerializer($scope.scopeController.search, 'oggettoSearch.');
+		document.location.href =  qborrowConfig.baseUrl + '/prestito.action?task=exportXls&reset=true&' + quixParamSerializer($scope.scopeController.search, 'prestitoSearch.');
 	}
 	
 	$scope.delete = function(row){
@@ -96,7 +67,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	    }, function(isConfirm){
 			if(isConfirm){
 				$scope.scopeController.selectedRow = row;
-				qxQborrowHttpService.deleteOggetto($scope.scopeController, labelService);
+				qxQborrowHttpService.deletePrestito($scope.scopeController, labelService);
 			}
 		});
 	}
@@ -112,9 +83,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	}
 	
 	$scope.save = function(row){
-		
-		$scope.scopeController.selectedRow.dataUltimaModifica = new Date();
-		qxQborrowHttpService.saveOggetto($scope.scopeController, $scope.forms.oggettoEditForm);
+		qxQborrowHttpService.savePrestito($scope.scopeController, $scope.forms.prestitoEditForm);
 	}
 	
 	$scope.resetSearch = function () {
@@ -126,7 +95,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 		qxQborrowHttpService.getCombo($scope.scopeController, name);
 	}
 	
-	//$scope.list();
+	$scope.list();
 	
     $scope.initCalendar = function(obj, id) {
     	if ( $('#' + id)[0].type != 'date' )  {
@@ -159,8 +128,8 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
     }
 }]);
 
-qborrowApp.controller('qxOggettoPopupController', ['$scope', 'qxQborrowHttpService', '$modal', '$modalInstance', '$controller', function ($scope, qxQborrowHttpService, $modal, $modalInstance, $controller) {
-	angular.extend(this, $controller('qxOggettoController', {$scope: $scope}));
+qborrowApp.controller('qxPrestitoPopupController', ['$scope', 'qxQborrowHttpService', '$modal', '$modalInstance', '$controller', function ($scope, qxQborrowHttpService, $modal, $modalInstance, $controller) {
+	angular.extend(this, $controller('qxPrestitoController', {$scope: $scope}));
 	$scope.popup = true;
 	
 	$scope.select = function(row) {

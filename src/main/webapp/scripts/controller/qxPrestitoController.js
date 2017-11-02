@@ -43,6 +43,11 @@ qborrowApp.controller('qxPrestitoController', ['$scope', 'qxQborrowHttpService',
 		$scope.scopeController.selectedRow = row;
 		qxQborrowHttpService.editPrestito($scope.scopeController);
 	}
+
+	$scope.newPrestito = function(){
+		$scope.scopeController.selectedRow = {};
+		$scope.scopeController.selectedPage = "edit";
+	}
 	
 	$scope.exportXLS = function() {
 		document.location.href =  qborrowConfig.baseUrl + '/prestito.action?task=exportXls&reset=true&' + quixParamSerializer($scope.scopeController.search, 'prestitoSearch.');

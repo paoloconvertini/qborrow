@@ -16,8 +16,8 @@
 <s:url id="homeUrl" namespace="/" action="home" escapeAmp="false" includeParams="none">
 	<s:param name="version">2</s:param>
 </s:url>
-<s:url id="oggettoUrl" namespace="/" action="oggetto" escapeAmp="false" includeParams="none">
-	<s:param name="task">mainPage</s:param>
+<s:url id="newPrestitoUrl" namespace="/" action="prestito" escapeAmp="false" includeParams="none">
+	<s:param name="task">newPrestito</s:param>
 </s:url>
 <s:url id="mieiOggettiUrl" namespace="/" action="oggetto" escapeAmp="false" includeParams="none">
 	<s:param name="task">mieiOggetti</s:param>
@@ -63,14 +63,17 @@
 					href="<s:property value="#homeUrl" escape="false" />"><s:text
 								name="menu.home" /></span>
 				</a></li>
-				<li><a class="framework-sidebar-menu-element-link"
+			<%-- 	<li><a class="framework-sidebar-menu-element-link"
 					href="<s:property value="#soggettoUrl" escape="false" />">Soggetto
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
 					href="<s:property value="#oggettoUrl" escape="false" />">Oggetto
+				</a></li> --%>
+				<li><a class="framework-sidebar-menu-element-link"
+					href="<s:property value="#newPrestitoUrl" escape="false" />">Nuovo Prestito
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
-					href="<s:property value="#prestitoUrl" escape="false" />">Prestito
+					href="<s:property value="#prestitoUrl" escape="false" />">Gestione Prestiti
 				</a></li>
 				<li><a class="framework-sidebar-menu-element-link"
 					href="<s:property value="#mieiOggettiUrl" escape="false" />">Miei

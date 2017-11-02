@@ -66,6 +66,7 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
     }
 	
     this.editOggetto = function(scopeController){
+    	
     	var success = function (data) {
         	if((typeof data) == 'string') {
         		// Not Managed Server error
@@ -84,11 +85,12 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         		method: 'POST', 
         		url: qborrowConfig.baseUrl + '/oggetto.action?task=edit', 
         		data: quixParamSerializer(scopeController.selectedRow, 'oggetto.'), 
+        		
         		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
         scopeController.promise.success(success).error(_manageError);
     }
-    
+   
      this.deleteOggetto = function(scopeController, labelService){
     	var success = function (data) {
         	if((typeof data) == 'string') {
@@ -127,7 +129,7 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         	if(data.errors != undefined) {
         		qxValidationError(data, form, $timeout, scopeController);
         	} else {
-        		_getOggettoList(scopeController, null);
+        		 _getMieiOggettiList(scopeController, null);
         		scopeController.selectedPage = 'list';
         	}
         };
@@ -278,6 +280,8 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         });
         scopeController.promise.success(success).error(_manageError);
     }
+
+
     
     this.editSoggetto = function(scopeController){
     	var success = function (data) {
@@ -417,7 +421,10 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         		qxValidationError(data, form, $timeout, scopeController);
         	} else {
         		_getSoggettoList(scopeController, null);
+        		form.email.$error = {};
+        		form.email.$invalid = false;
         		scopeController.selectedPage = 'list';
+        		scopeController.editProfileAlert();
         	}
         };
         scopeController.promise = $http({ 
@@ -452,4 +459,4 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
     }					
 };
 
-qborrowApp.service('qxQborrowHttpService', ['$http', 'qborrowConfig', '$timeout', qxQborrowHttpService]);								
+qborrowApp.service('qxQborrowHttpService', ['$http', 'qborrowConfig', '$timeout', qxQborrowHttpService]);		

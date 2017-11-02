@@ -195,6 +195,14 @@ public class PrestitoAbstractManagerAction extends QborrowManagerAction {
     }
 
     /**
+     * Edit task.
+     * This method edit one prestito instance.
+     */
+    public String newPrestito() {
+        return "newPrestito";
+    }
+
+    /**
      * Save task.
      * This method save one prestito instance.
      */

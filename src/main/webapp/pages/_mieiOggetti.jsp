@@ -16,6 +16,7 @@
   			<h3 class="qh3 box-title">&nbsp;&nbsp;<s:text name="oggetto.search.title"/></h3>
 		</div>
 		<div class="box-body" ng-show="!filtriEspansi" ng-cloak>
+		
 			<span class="filterDiv" ng-if="scopeController.search.titolo != null && scopeController.search.titolo != ''">
 				<s:text name="oggetto.search.titolo"/>: 
 				<b>
@@ -148,19 +149,19 @@
     	<table class="qtable qtable-hover">
 			<thead>
 				<tr>
+					<th class="qtext-left"><s:text name="oggetto.list.id"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.titolo"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.descrizione"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.categoria"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.inPrestito"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.beneficiario"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.dataScadenza"/></th>
+					<%-- <th class="qtext-left"><s:text name="oggetto.list.beneficiario"/></th>
+					<th class="qtext-left"><s:text name="oggetto.list.dataScadenza"/></th> --%>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="row in scopeController.result.list">
+					<td>{{ row.id }}</td>
 					<td>{{ row.titolo }}</td>
-					<td>{{ row.descrizione }}</td>
 					<td>{{ row.categoria | sysattribute:'QBO001_categoria' }}</td>
 					<td ng-if="row.oggettoPrestato == true">
 						<i class="fa fa-check qtext-success" aria-hidden="true"></i>
@@ -168,23 +169,23 @@
 						<td ng-if="row.oggettoPrestato == false">
 						<i class="fa fa-times qtext-danger" aria-hidden="true"></i>
 					</td>
-						<td>{{ row.prestito.soggettoBeneficiario.nome }} {{ row.prestito.soggettoBeneficiario.cognome }}</td>
+						
 					
-					<td class="qtext-left" >{{ row.prestito.dataScadenza  | date:"<s:text name="format.date4" />"}}</td>
 					<td class="qtext-right">
-						<div class="qbtn-group" ng-hide="popup">
-		                  	<button class="qbtn btn-framework-color" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button>
-		                   	<button data-toggle="qdropdown" class="qbtn btn-framework-color qdropdown-toggle" type="button" aria-expanded="false">
-		                       	<span class="qcaret"></span>
-		                       	<span class="qsr-only"></span>
-		                    </button>
-		                    <ul role="qmenu" class="qdropdown-menu qdropdown-menu-right">
-		                       	<li ng-click="delete(row)"><a><i class="fa fa-trash-o"></i>&nbsp;<s:text name="button.delete" /></a></li>
-		                    </ul>
-		              	</div>
-		              	<div ng-show="popup">		 	
-							<button class="qbtn btn-framework-color" ng-click="select(row)" type="button"><i class="fa fa-check-circle"></i>&nbsp;<s:text name="button.select" /></button>		 	
-						</div>		
+						<div class="qrow text-right qcol-md-4 qpull-right qpad-right-20" >
+		                  	<div class="qcol-md-4">
+		                  		  	<button class="qbtn" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>
+		                  	</button>
+		                  	</div>
+		                	<div class="qcol-md-4">
+		                		 <button class="qbtn" ng-click="delete(row)" type="button"  ng-show="{{row.oggettoPrestato == false}}"><i class="fa fa-trash-o"></i>
+		                    	</button>
+		                  	</div>
+		                	<div class="qcol-md-4">
+		                		 <button class="qbtn" ng-click="" type="button" ng-show="{{row.oggettoPrestato == false}}"><i class="fa fa-user-plus" aria-hidden="true"></i>
+		                    	</button>
+		                  	</div>
+		              	</div> <!-- fine della row -->
 					</td>
 				</tr>
 			</tbody>
@@ -199,7 +200,7 @@
 				first-text="&lt;" 
 				last-text="&gt;" 
 				rotate="false" 
-				ng-change="list()"
+				ng-change="listMieiOggetti()"
 				style="margin: 0px;"
 			/>
 		</div>

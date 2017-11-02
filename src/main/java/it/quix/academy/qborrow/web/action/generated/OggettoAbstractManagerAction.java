@@ -16,6 +16,7 @@ import org.zefer.pd4ml.PD4ML;
 import org.zefer.pd4ml.PD4PageMark;
 
 import javax.annotation.Resource;
+
 import it.quix.framework.core.composer.ExcelComposer;
 import it.quix.framework.core.exception.DAOFinderException;
 import it.quix.framework.core.handler.SysAttributeHandler;
@@ -23,7 +24,6 @@ import it.quix.framework.core.model.AttributeView;
 import it.quix.framework.core.validation.InvalidConstraintImpl;
 import it.quix.framework.core.validation.api.InvalidConstraint;
 import it.quix.framework.core.validation.exception.ValidationException;
-import it.quix.academy.qborrow.core.model.Oggetto;
 import it.quix.academy.qborrow.core.model.*;
 import it.quix.academy.qborrow.core.search.OggettoSearch;
 import it.quix.academy.qborrow.core.manager.QborrowManager;
@@ -37,6 +37,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
+
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
@@ -209,7 +210,16 @@ public class OggettoAbstractManagerAction extends QborrowManagerAction {
     public String edit() {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         try {
+
             oggetto = getQborrowManager().getOggetto(oggetto.getId());
+            List<Prestito> list;
+            list = getQborrowManager().getPrestitoListByOggetto(oggetto.getId());
+
+            if (list.size() > 0) {
+                Prestito prestito = list.get(0);
+                oggetto.setPrestito(prestito);
+            }
+
             return manageSerialize(oggetto);
         } catch (Exception e) {
             return manageException("Error on edit Oggetto", e);
@@ -224,8 +234,18 @@ public class OggettoAbstractManagerAction extends QborrowManagerAction {
         if (oggetto == null) {
             // New Oggetto and all fields are empty. Create a new empty Oggetto to avoid NPE on validators.
             oggetto = new Oggetto();
+
         }
         try {
+            oggetto.setProprietario_username(userContext.getRealUserDn());
+            // oggetto.getPrestito().setSoggettoBeneficiario_username(oggetto.getPrestito().getSoggettoBeneficiario().getUsername());;
+            // oggetto.getPrestito();
+            /*
+             * Soggetto soggetto = new Soggetto();
+             * soggetto.setUsername(userContext.getRealUserDn());
+             * oggetto.setProprietario(soggetto);
+             */
+
             getQborrowManager().saveOggetto(oggetto);
             return manageOkMessage();
         } catch (ValidationException e) {
@@ -311,4 +331,5 @@ public class OggettoAbstractManagerAction extends QborrowManagerAction {
     public void setOggetto(Oggetto oggetto) {
         this.oggetto = oggetto;
     }
+
 }

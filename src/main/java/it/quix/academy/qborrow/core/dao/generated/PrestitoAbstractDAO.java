@@ -78,7 +78,7 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             prestito.prePersist(configuration);
             // Set the parameters
             int p = 1;
-            super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario_username());
+            super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario().getUsername());
             super.setParameterInteger(statement, p++, prestito.getOggettoPrestato_id());
             super.setParameterDate(statement, p++, prestito.getDataPrestito());
             super.setParameterDate(statement, p++, prestito.getDataScadenza());
@@ -147,7 +147,75 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             super.setParameterDate(statement, p++, prestito.getDataScadenza());
 
             // Set the primary key
-            super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario_username());
+            super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario().getUsername());
+            super.setParameterInteger(statement, p++, prestito.getOggettoPrestato_id());
+
+            // Execute the query
+            long startTime = System.currentTimeMillis();
+            int numberOfUpdatedRecord = statement.executeUpdate();
+            long endTime = System.currentTimeMillis();
+            long time = endTime - startTime;
+            String msgTime = FrameworkStringUtils.concat("Query time: ", time);
+            if (queryLog.isDebugEnabled()) {
+                queryLog.debug(msgTime);
+            }
+            if (numberOfUpdatedRecord < 1) {
+                String msg =
+                    FrameworkStringUtils.concat("Error while updating the record of type Prestito ", prestito, " on database. Number of updated rows: ",
+                        numberOfUpdatedRecord);
+                if (log.isWarnEnabled()) {
+                    log.warn(msg);
+                }
+                throw new DAOStoreException(msg);
+            }
+        } catch (SQLException ex) {
+            String msg = FrameworkStringUtils.concat("Unexpeted error during update of record of type Prestito ", prestito, " on database.");
+            if (log.isErrorEnabled()) {
+                log.error(msg, ex);
+            }
+            throw new SystemException(msg, ex);
+        } finally {
+            closeStatement(statement);
+            closeConnection(connection);
+        }
+    }
+
+    /**
+     * Updates a record of type Prestito on table prestiti
+     * 
+     * @param prestito The Prestito to update on database
+     * @throws DAOStoreException if no record is updated on database
+     */
+    public void updateWithoutSoggettoBeneficiario(Prestito prestito) throws DAOStoreException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            // Compose the update query
+            StringBuilder query = new StringBuilder(EOL);
+            query.append(" UPDATE prestiti SET ").append(EOL);
+            query.append(" beneficiario = ? , data_prestito = ? , data_scadenza = ?  ").append(EOL);
+            query.append("  WHERE oggetto_prestato = ? ").append(EOL);
+
+            // Query logging
+            if (queryLog.isInfoEnabled()) {
+                queryLog.info(query);
+            }
+            // Get connection
+            connection = getConnection();
+            // Prepare the statement
+            statement = connection.prepareStatement(query.toString());
+
+            // set preUpdate
+            prestito.preUpdate(configuration);
+
+            // Set the parameters
+            int p = 1;
+            super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario().getUsername());
+            super.setParameterDate(statement, p++, prestito.getDataPrestito());
+            super.setParameterDate(statement, p++, prestito.getDataScadenza());
+
+            // Set the primary key
+            // super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario_username());
             super.setParameterInteger(statement, p++, prestito.getOggettoPrestato_id());
 
             // Execute the query
@@ -540,6 +608,7 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             StringBuilder query = new StringBuilder(EOL);
             query.append("SELECT * FROM prestiti ").append(EOL);
             query.append("WHERE oggetto_prestato = ?  ").append(EOL);
+            // query.append("ORDER BY data_prestito DESC  ").append(EOL);
             // Query logging
             if (queryLog.isInfoEnabled()) {
                 queryLog.info(query);

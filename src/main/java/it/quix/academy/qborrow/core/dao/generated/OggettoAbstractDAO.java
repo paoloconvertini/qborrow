@@ -62,9 +62,9 @@ public abstract class OggettoAbstractDAO extends AbstractJDBCDAO {
             // Compose the insert query
             StringBuilder query = new StringBuilder(EOL);
             query.append("INSERT INTO oggetti ").append(EOL);
-            query.append("   (ID, TITOLO, DESCRIZIONE, IMMAGINE, CATEGORIA, DATA_ULTIMA_MODIFICA, PROPRIETARIO) ").append(EOL);
+            query.append("   (TITOLO, DESCRIZIONE, IMMAGINE, CATEGORIA, DATA_ULTIMA_MODIFICA, PROPRIETARIO) ").append(EOL);
             query.append(" VALUES ").append(EOL);
-            query.append(" (?, ?, ?, ?, ?, ?, ?) ").append(EOL);
+            query.append(" (?, ?, ?, ?, ?, ?) ").append(EOL);
 
             // Query logging
             if (queryLog.isInfoEnabled()) {
@@ -73,12 +73,12 @@ public abstract class OggettoAbstractDAO extends AbstractJDBCDAO {
             // Get connection
             connection = getConnection();
             // Prepare the statement
-            statement = connection.prepareStatement(query.toString());
+            statement = connection.prepareStatement(query.toString(), statement.RETURN_GENERATED_KEYS);
             // set prePersist
             oggetto.prePersist(configuration);
             // Set the parameters
             int p = 1;
-            super.setParameterInteger(statement, p++, oggetto.getId());
+
             super.setParameterString(statement, p++, oggetto.getTitolo());
             super.setParameterString(statement, p++, oggetto.getDescrizione());
             super.setParameterString(statement, p++, oggetto.getImmagine());
@@ -104,6 +104,13 @@ public abstract class OggettoAbstractDAO extends AbstractJDBCDAO {
                 }
                 throw new DAOCreateException(msg);
             }
+
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs != null && rs.next()) {
+                int id = rs.getInt(1);
+                oggetto.setId(id);
+            }
+
         } catch (SQLException ex) {
             String msg = "Unexpeted error on create Oggetto on database.";
             if (log.isErrorEnabled()) {

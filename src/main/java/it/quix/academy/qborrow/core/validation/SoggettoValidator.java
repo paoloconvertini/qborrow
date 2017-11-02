@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,6 +82,21 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
             }
 
         }
+
+        if (soggetto.getEmail() != null) {
+            EmailValidation emailValidation = new EmailValidation();
+            boolean isEmailValid = emailValidation.validate(soggetto.getEmail());
+            if (isEmailValid == false) {
+                InvalidConstraint<Soggetto> ic1 =
+                    new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto, soggetto.getEmail());
+                errors.add(ic1);
+            }
+        } else {
+            InvalidConstraint<Soggetto> ic1 =
+                new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNull", propertyPath + "email", soggetto, soggetto.getEmail());
+            errors.add(ic1);
+        }
+
         // insert here custom validations for Soggetto model
         // after a validation check fail create a new InvalidContraint of the validated type
         // and instantiate an InvalidContraintImpl of the validated type with the error information, es:

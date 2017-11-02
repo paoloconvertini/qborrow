@@ -45,6 +45,7 @@
 		
 		<action name="prestito" class="prestitoAction">
 			<result name="mainPage">/pages/Prestito.jsp</result>
+			<result name="newPrestito">/pages/NewPrestito.jsp</result>
 			<interceptor-ref name="quixStack" >
 				<param name="quixValidationInterceptor.exludeMethods">select</param>
 			</interceptor-ref>

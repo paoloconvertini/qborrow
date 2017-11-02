@@ -53,11 +53,6 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
      */
     private static Log log = LogFactory.getLog(OggettoManagerAction.class);
 
-    /**
-     * Search filters
-     */
-    private OggettoSearch oggettoSearch = new OggettoSearch();
-
     private List<Oggetto> mieiOggettiStruts = new ArrayList<Oggetto>();
 
     private String search;
@@ -80,25 +75,25 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
     public String listMieiOggetti() throws QborrowException {
         try {
             log.debug("il mio username è " + getUserContext().getRealUserDn());
-            oggettoSearch.setProprietario_username(getUserContext().getRealUserDn());
+            getOggettoSearch().setProprietario_username(getUserContext().getRealUserDn());
             // Validate the search model
-            getQborrowManager().validateOggettoSearch(oggettoSearch);
+            getQborrowManager().validateOggettoSearch(getOggettoSearch());
             // Perform count of record that satisfy search filters
-            long total = getQborrowManager().countMieiOggetti(oggettoSearch);
+            long total = getQborrowManager().countMieiOggetti(getOggettoSearch());
             // If there are results ...
             List<Oggetto> oggettoList = null;
             if (total > 0) {
                 // Search the results to display
                 do {
-                    oggettoList = getQborrowManager().getMieiOggettiList(oggettoSearch);
-                    if (oggettoList.isEmpty() && oggettoSearch.getPage() > 0) {
+                    oggettoList = getQborrowManager().getMieiOggettiList(getOggettoSearch());
+                    if (oggettoList.isEmpty() && getOggettoSearch().getPage() > 0) {
                         if (log.isInfoEnabled()) {
-                            log.info("The request page " + oggettoSearch.getPage() + " was empty."
-                                + ((oggettoSearch.getPage() > 1) ? " Try with page " + (oggettoSearch.getPage() - 1) + "." : ""));
+                            log.info("The request page " + getOggettoSearch().getPage() + " was empty."
+                                + ((getOggettoSearch().getPage() > 1) ? " Try with page " + (getOggettoSearch().getPage() - 1) + "." : ""));
                         }
-                        oggettoSearch.setPage(oggettoSearch.getPage() - 1);
+                        getOggettoSearch().setPage(getOggettoSearch().getPage() - 1);
                     }
-                } while (0 < oggettoSearch.getPage() && oggettoList.isEmpty());
+                } while (0 < getOggettoSearch().getPage() && oggettoList.isEmpty());
             }
 
             // Compose the response
@@ -111,34 +106,6 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
         } catch (Exception e) {
             return manageException("Error on list Oggetto", e);
         }
-    }
-
-    /**
-     * Metodo di lista che torna solo i miei oggetti.
-     * This method find oggetto that satisfy search filters.
-     * 
-     * @throws QborrowException if an error occurs
-     */
-    public String listMieiOggettiStruts() throws QborrowException {
-        oggettoSearch = new OggettoSearch();
-        oggettoSearch.setPage(0);
-        oggettoSearch.setRowPerPage(10);
-        mieiOggettiStruts = getQborrowManager().getMieiOggettiList(oggettoSearch);
-        return "listMieiOggettiStruts";
-    }
-
-    /**
-     * @return the oggettoSearch
-     */
-    public OggettoSearch getOggettoSearch() {
-        return oggettoSearch;
-    }
-
-    /**
-     * @param oggettoSearch the oggettoSearch to set
-     */
-    public void setOggettoSearch(OggettoSearch oggettoSearch) {
-        this.oggettoSearch = oggettoSearch;
     }
 
     /**

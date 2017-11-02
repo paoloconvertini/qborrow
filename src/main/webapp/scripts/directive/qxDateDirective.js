@@ -12,7 +12,7 @@ qborrowApp.directive('dateformat', ['$filter', '$locale', function ($filter, $lo
                 var format = attrs.dateformat;
                 //return $filter('date')(ctrl.$modelValue, format)
                 if (ctrl.$modelValue == null) {
-                	if (attrs.presetdate) {
+                	if (attrs.presetdate == "true") {
                 		ctrl.$setViewValue(moment().startOf('day'));
                 	} else {
                 		return '';

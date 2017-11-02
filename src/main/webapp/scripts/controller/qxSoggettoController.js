@@ -9,6 +9,7 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	$scope.scopeController.search.page = 1;
 	$scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 	
+	
 	$scope.search = function () {
 		$scope.scopeController.search.order = 0;
 		$scope.scopeController.search.page = 1;
@@ -44,7 +45,7 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	}
 	
 	$scope.editMyProfile = function(){
-		qxQborrowHttpService.editMyProfile($scope.scopeController);
+		qxQborrowHttpService.editMyProfile($scope.scopeController);	
 	}
 	
 	$scope.editWithCompleanno = function(row){
@@ -75,6 +76,10 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 		});
 	}
 	
+	$scope.scopeController.editProfileAlert = function() {
+		SweetAlert.swal("", "Profilo modificato", "success");
+	}
+	
 	$scope.create = function(){
 		$scope.scopeController.selectedRow = {};
 		$scope.scopeController.selectedPage = "edit";
@@ -90,8 +95,13 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	}
 	
 	$scope.saveWithCompleanno = function(row){
-		SweetAlert.swal("Profilo modificato");
-		qxQborrowHttpService.saveSoggettoWithCompleanno($scope.scopeController, $scope.forms.soggettoEditForm);
+	/*	var isValidForm = $scope.forms.soggettoEditForm.$valid;
+		if (isValidForm) {*/
+		
+			qxQborrowHttpService.saveSoggettoWithCompleanno($scope.scopeController, $scope.forms.soggettoEditForm);
+		/*} else {
+			SweetAlert.swal("", "Errore nel form", "error");
+		}*/
 	}
 	
 	$scope.resetSearch = function () {

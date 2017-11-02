@@ -157,11 +157,35 @@ public class QborrowManager {
         if (validate) {
             validateOggetto(oggetto);
         }
+
         if (oggetto.getId() == null) {
             createOggetto(oggetto, validate);
+            Prestito prestito = oggetto.getPrestito();
+
+            if (prestito != null) {
+                prestito.setOggettoPrestato_id(oggetto.getId());
+                createPrestito(prestito);
+            }
         } else {
             updateOggetto(oggetto, validate);
+            Prestito prestito = oggetto.getPrestito();
+            if (prestito != null) {
+                List<Prestito> prestitoListByOggettoPrestato = getDaoFactory().getPrestitoDAO().getPrestitoListByOggettoPrestato(oggetto.getId());
+                if (prestitoListByOggettoPrestato.size() > 0) {
+                    updatePrestitoWithoutSoggettoBeneficiario(prestito, validate);
+                } else {
+                    createPrestito(prestito, validate);
+                }
+            }
         }
+
+        /*
+         * if (oggetto.getId() == null) {
+         * createOggetto(oggetto, validate);
+         * } else {
+         * updateOggetto(oggetto, validate);
+         * }
+         */
         return oggetto;
     }
 
@@ -461,6 +485,32 @@ public class QborrowManager {
         try {
 
             daoFactory.getPrestitoDAO().update(prestito);
+
+            return prestito;
+        } catch (DAOStoreException ex) {
+            throw new QborrowException(ex, prestito);
+        }
+    }
+
+    /**
+     * update the passed Prestito object to database
+     * 
+     * @param prestito the object to update
+     * @param validate false skip model validation
+     * @return the updated object
+     * @throws QborrowException if an unexpected exception occurs during
+     *             operation
+     * @throws ValidationException if input data doesn't satisfy validation
+     * @see Prestito
+     */
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Prestito updatePrestitoWithoutSoggettoBeneficiario(Prestito prestito, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validatePrestito(prestito);
+        }
+        try {
+
+            daoFactory.getPrestitoDAO().updateWithoutSoggettoBeneficiario(prestito);
 
             return prestito;
         } catch (DAOStoreException ex) {

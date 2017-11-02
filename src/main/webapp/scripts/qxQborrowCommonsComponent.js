@@ -24,21 +24,41 @@ if(typeof qborrowPresent == 'undefined'){
     function quixParamSerializer(params, prefix) {
         if (!params) return '';
         var parts = [];
-        qxForEachSorted(params, function(value, key) {
-          if (value === null || value == undefined) return;
-          if (Array.isArray(value)) {
-        	  for (var i = 0; i < value.length; i++) {
-        		  parts.push(quixParamSerializer(value[i], prefix + key + '[' + i + '].'));
-        		  //parts.push(encodeURIComponent(prefix + key)  + '=' + encodeURIComponent(qxSerializeValue(v)));
-        	  }
-          } else {
-        	  parts.push(encodeURIComponent(prefix + key) + '=' + encodeURIComponent(qxSerializeValue(value)));
-          }
-        });
+        if (Array.isArray(params)) {
+      	  for (var i = 0; i < params.length; i++) {
+    		  if (typeof params[i] === 'object') {
+    			  parts.push(quixParamSerializer(params[i], prefix + '[' + i + '].'));
+    		  } else {
+    			  parts.push(encodeURIComponent(prefix + '[' + i + ']') + '=' + encodeURIComponent(qxSerializeValue(params[i])));
+    		  }
+      		  //parts.push(encodeURIComponent(prefix + key)  + '=' + encodeURIComponent(qxSerializeValue(v)));
+      	  }
+        } else {
+	        qxForEachSorted(params, function(value, key) {
+	          if (value === null || value == undefined) return;
+	          if (Array.isArray(value)) {
+	        	  for (var i = 0; i < value.length; i++) {
+	        		  if (typeof value[i] === 'object') {
+	        			  parts.push(quixParamSerializer(value[i], prefix + key + '[' + i + '].'));
+	        		  } else {
+	        			  parts.push(encodeURIComponent(prefix + key + '[' + i + ']') + '=' + encodeURIComponent(qxSerializeValue(value[i])));
+	        		  }
+	        		  //parts.push(encodeURIComponent(prefix + key)  + '=' + encodeURIComponent(qxSerializeValue(v)));
+	        	  }
+	          } else {
+	        	  if (value !== null && typeof value === 'object' && !(toString.call(value) === '[object Date]')) {
+	        		  parts.push(quixParamSerializer(value, prefix + key + '.'));
+	        	  } else {
+	        		  parts.push(encodeURIComponent(prefix + key) + '=' + encodeURIComponent(qxSerializeValue(value)));
+	//        		  parts.push(quixParamSerializer(value[i], prefix + key + '[' + i + '].'));
+	        	  }
+	          }
+	        });
+        }
 		parts.push('jsonCall=true');
         return parts.join('&');
+       
     };
-
 	function qxResetPopupField(object, property) {
 		object[property] = null;
 		object[property + '_description'] = '';
@@ -281,6 +301,21 @@ if(typeof qborrowPresent == 'undefined'){
     	    "      <div class=\"qpopover-content\" ng-bind=\"content\"></div>\n" +
     	    "  </div>\n" +
     	    "</div>\n" +
+    	    "");
+    	}]);
+    
+    angular.module("template/typeahead/typeahead-match.html", []).run(["$templateCache", function($templateCache) {
+    	  $templateCache.put("template/typeahead/typeahead-match.html",
+    	    "<a tabindex=\"-1\" bind-html-unsafe=\"match.label | typeaheadHighlight:query\"></a>");
+    	}]);
+
+    	angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCache", function($templateCache) {
+    	  $templateCache.put("template/typeahead/typeahead-popup.html",
+    	    "<ul class=\"qdropdown-menu\" ng-show=\"isOpen()\" ng-style=\"{top: position.top+'px', left: position.left+'px'}\" style=\"display: block;\" role=\"listbox\" aria-hidden=\"{{!isOpen()}}\">\n" +
+    	    "    <li ng-repeat=\"match in matches track by $index\" ng-class=\"{active: isActive($index) }\" ng-mouseenter=\"selectActive($index)\" ng-click=\"selectMatch($index)\" role=\"option\" id=\"{{match.id}}\">\n" +
+    	    "        <div typeahead-match index=\"$index\" match=\"match\" query=\"query\" template-url=\"templateUrl\"></div>\n" +
+    	    "    </li>\n" +
+    	    "</ul>\n" +
     	    "");
     	}]);
 } 
