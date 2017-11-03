@@ -44,7 +44,7 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
             log.debug("Call customValidation method for class SoggettoValidator ");
         }
 
-        if (soggetto.getDataCompleanno() != null) {
+       /* if (soggetto.getDataCompleanno() != null) {
 
             int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
@@ -81,7 +81,7 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
                 errors.add(ic2);
             }
 
-        }
+        }*/
 
         if (soggetto.getEmail() != null) {
             EmailValidation emailValidation = new EmailValidation();

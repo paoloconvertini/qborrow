@@ -23,13 +23,9 @@
   	<body ng-app="qborrow"> 
   		<div class="qcontainer-fluid"> 
   			<jsp:include page="_header.jsp" />
-	  		<div class="frameworkRow"  >
-		  		<div class="frameworkLeftMenuCell">
-					<jsp:include page="_left.jsp">
-						<jsp:param name="menuActive" value="prestito"/>
-					</jsp:include>
-				</div>
-  				<div class="frameworkMainCell" ng-controller="qxNewPrestitoController" ng-include="scopeController.selectedPage">
+	  		<div class="qcontainer"  >
+		  		
+  				<div class="qrow" ng-controller="qxNewPrestitoController" ng-include="scopeController.selectedPage">
 					
   				</div>
   				

@@ -143,7 +143,7 @@ public class SoggettoDAO extends SoggettoAbstractDAO {
             query.append(" email = ? , ragione_sociale = ? , nome = ? , cognome = ? , immagine = ? , data_ultima_modifica = ?,  data_compleanno = ? ").append(
                 EOL);
             query.append("  WHERE username = ? ").append(EOL);
-            query.append("  AND (date_format(data_compleanno, '%y') % 2 ) = 0 ").append(EOL);
+           // query.append("  AND (date_format(data_compleanno, '%y') % 2 ) = 0 ").append(EOL);
 
             // Query logging
             if (queryLog.isInfoEnabled()) {

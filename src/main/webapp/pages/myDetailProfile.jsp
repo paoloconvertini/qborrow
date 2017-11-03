@@ -195,7 +195,6 @@
 										<s:text name="button.save" />
 								</qbutton>
 							</div>
-							<pre>{{forms.soggettoEditForm.email | json}}</pre>
 						</form>
 					</div>
 				

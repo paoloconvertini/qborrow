@@ -5,7 +5,7 @@
 <form name="forms.prestitoEditForm" novalidate>
 	<div class="box box-framework" >
 		<div class="box-header with-border">
-			<h3 class="qh3 box-title">Nuovo Prestito</h3>
+			<h3 class="qh3 box-title text-center">Nuovo Prestito</h3>
 		</div>
 		
 		<div class="box-body">
@@ -75,7 +75,7 @@
 						<div class="qdropdown">
 							<a class="qdropdown-toggle" id="dropdown2" role="qbutton" data-toggle="qdropdown" data-target="#" href="#">
 								<div class="qinput-group">
-						    		<input type="text" name="dataPrestito" id="dataPrestito" class="qform-control box-input-calendar" data-ng-model="scopeController.selectedRow.dataPrestito" presetDate="true" dateformat="DD/MM/YYYY">
+						    		<input type="text" name="dataPrestito" id="dataPrestito" class="qform-control box-input-calendar" data-ng-model="scopeController.selectedRow.dataPrestito" presetDate="false" dateformat="DD/MM/YYYY">
 						    		<span class="qinput-group-addon"><i class="fa fa-calendar"></i></span>
 						    	</div>
 						  	</a>
@@ -108,7 +108,7 @@
 						<div class="qdropdown">
 							<a class="qdropdown-toggle" id="dropdown2" role="qbutton" data-toggle="qdropdown" data-target="#" href="#">
 								<div class="qinput-group">
-						    		<input type="text" name="dataScadenza" id="dataScadenza" class="qform-control box-input-calendar" data-ng-model="scopeController.selectedRow.dataScadenza" presetDate="true" dateformat="DD/MM/YYYY">
+						    		<input type="text" name="dataScadenza" id="dataScadenza" class="qform-control box-input-calendar" data-ng-model="scopeController.selectedRow.dataScadenza" presetDate="false" dateformat="DD/MM/YYYY">
 						    		<span class="qinput-group-addon"><i class="fa fa-calendar"></i></span>
 						    	</div>
 						  	</a>

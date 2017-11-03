@@ -407,7 +407,7 @@ public class QborrowManager {
         if (prestito.getSoggettoBeneficiario() == null && prestito.getOggettoPrestato() == null) {
             createPrestito(prestito, validate);
         } else {
-            updatePrestito(prestito, validate);
+        	updatePrestitoWithoutSoggettoBeneficiario(prestito, validate);
         }
         return prestito;
     }
