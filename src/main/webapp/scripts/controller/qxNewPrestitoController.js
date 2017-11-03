@@ -20,6 +20,10 @@ qborrowApp.controller('qxNewPrestitoController', ['$scope', 'qxQborrowHttpServic
 		$scope.list();
 	}
 	
+	$scope.scopeController.newPrestitoAlert = function() {
+		SweetAlert.swal("", "Nuovo prestito aggiunto", "success");
+	}
+	
 	$scope.orderBy = function(orderBy) {
 		$scope.scopeController.search.order = orderBy;
 		$scope.scopeController.search.page = 1;

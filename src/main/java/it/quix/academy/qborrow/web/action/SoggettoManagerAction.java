@@ -103,7 +103,7 @@ public class SoggettoManagerAction extends SoggettoAbstractManagerAction {
     public String editMyProfile() {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         try {
-            Soggetto soggetto = getQborrowManager().getSoggettoWithCompleanno(getUserContext().getRealUser().getDn());
+            Soggetto soggetto = getQborrowManager().getSoggetto(getUserContext().getRealUser().getDn());
             return manageSerialize(soggetto);
         } catch (Exception e) {
             return manageException("Error on edit Soggetto", e);

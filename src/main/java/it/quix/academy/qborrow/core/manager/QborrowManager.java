@@ -404,11 +404,17 @@ public class QborrowManager {
         if (validate) {
             validatePrestito(prestito);
         }
-        if (prestito.getSoggettoBeneficiario() == null && prestito.getOggettoPrestato() == null) {
-            createPrestito(prestito, validate);
+        try {
+			getDaoFactory().getPrestitoDAO().get(prestito.getSoggettoBeneficiario().getUsername(), prestito.getOggettoPrestato().getId());
+			updatePrestito(prestito, validate);
+		} catch (DAOFinderException e) {
+			 createPrestito(prestito, validate);
+		}
+       /* if (prestito.getSoggettoBeneficiario() == null && prestito.getOggettoPrestato() == null) {
+           
         } else {
         	updatePrestitoWithoutSoggettoBeneficiario(prestito, validate);
-        }
+        }*/
         return prestito;
     }
 

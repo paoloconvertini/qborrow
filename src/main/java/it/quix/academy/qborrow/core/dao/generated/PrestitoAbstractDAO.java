@@ -79,7 +79,7 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             // Set the parameters
             int p = 1;
             super.setParameterString(statement, p++, prestito.getSoggettoBeneficiario().getUsername());
-            super.setParameterInteger(statement, p++, prestito.getOggettoPrestato_id());
+            super.setParameterInteger(statement, p++, prestito.getOggettoPrestato().getId());
             super.setParameterDate(statement, p++, prestito.getDataPrestito());
             super.setParameterDate(statement, p++, prestito.getDataScadenza());
 

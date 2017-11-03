@@ -236,8 +236,9 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         	if(data.errors != undefined) {
         		qxValidationError(data, form, $timeout, scopeController);
         	} else {
-        		_getPrestitoList(scopeController, null);
-        		scopeController.selectedPage = 'list';
+        		//_getPrestitoList(scopeController, null);
+        		scopeController.newPrestitoAlert();
+        		//scopeController.selectedPage = 'edit';
         	}
         };
         scopeController.promise = $http({ 
@@ -394,7 +395,11 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         		qxValidationError(data, form, $timeout, scopeController);
         	} else {
         		_getSoggettoList(scopeController, null);
+        		form.email.$error = {};
+        		form.email.$invalid = false;
         		scopeController.selectedPage = 'list';
+        		scopeController.editProfileAlert();
+        		
         	}
         };
         scopeController.promise = $http({ 

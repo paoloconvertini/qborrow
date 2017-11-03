@@ -190,7 +190,7 @@
 														<a href="<s:property value="#homeUrl" escape="false" />"><i class="fa fa-arrow-circle-left"></i>
 										<s:text name="button.back" /></a>
 								</qbutton>
-								<qbutton type="submit" ng-click="saveWithCompleanno()" class="qbtn btn-framework-color">
+								<qbutton type="submit" ng-click="save()" class="qbtn btn-framework-color">
 										<i class="fa fa-floppy-o"></i>&nbsp;
 										<s:text name="button.save" />
 								</qbutton>
