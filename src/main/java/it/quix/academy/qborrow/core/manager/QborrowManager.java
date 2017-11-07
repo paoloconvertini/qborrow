@@ -122,7 +122,7 @@ public class QborrowManager {
     @Transactional(readOnly = true, rollbackFor = { QborrowException.class })
     public Oggetto getOggetto(Integer id) throws DAOFinderException {
         Oggetto oggetto = null;
-        oggetto = daoFactory.getOggettoDAO().get(id);
+        oggetto = daoFactory.getOggettoDAO().getWithPrestato(id);
         return oggetto;
     }
 

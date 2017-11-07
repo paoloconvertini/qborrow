@@ -20,6 +20,8 @@ import org.apache.commons.logging.LogFactory;
 import it.quix.academy.qborrow.Configuration;
 import it.quix.academy.qborrow.core.manager.QborrowManager;
 import it.quix.academy.qborrow.core.model.Oggetto;
+import it.quix.academy.qborrow.core.model.Prestito;
+import it.quix.academy.qborrow.core.model.Soggetto;
 import it.quix.academy.qborrow.core.search.OggettoSearch;
 import it.quix.framework.core.dao.AbstractJDBCDAO;
 import it.quix.framework.core.exception.DAOCreateException;
@@ -303,7 +305,8 @@ public abstract class OggettoAbstractDAO extends AbstractJDBCDAO {
             int p = 1;
             // Set the primary key
             super.setParameterInteger(statement, p++, id);
-
+            
+            
             // Execute the query
             long startTime = System.currentTimeMillis();
             rs = statement.executeQuery();
@@ -315,6 +318,10 @@ public abstract class OggettoAbstractDAO extends AbstractJDBCDAO {
             }
             if (rs.next()) {
                 Oggetto oggettoModel = buildModelFromResultSet(rs);
+                if (getParameterString(rs, "beneficiario") != null) {
+                	 oggettoModel.setOggettoPrestato(true);
+                }
+
                 return oggettoModel;
             }
             throw new DAOFinderException(FrameworkStringUtils.concat("Cannot find Oggetto on database with [id = ", id, "]"));

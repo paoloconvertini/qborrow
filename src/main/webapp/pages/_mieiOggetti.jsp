@@ -182,7 +182,7 @@
 		                    	</button>
 		                  	</div>
 		                	<div class="qcol-md-4">
-		                		 <button class="qbtn" ng-click="" type="button" ng-show="{{row.oggettoPrestato == false}}"><i class="fa fa-user-plus" aria-hidden="true"></i>
+		                		 <button class="qbtn" ng-click="edit(row)" type="button" ng-show="{{row.oggettoPrestato == false}}"><i class="fa fa-user-plus" aria-hidden="true"></i>
 		                    	</button>
 		                  	</div>
 		              	</div> <!-- fine della row -->

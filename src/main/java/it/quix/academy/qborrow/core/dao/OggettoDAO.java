@@ -20,6 +20,7 @@ import it.quix.academy.qborrow.core.model.Oggetto;
 import it.quix.academy.qborrow.core.model.Prestito;
 import it.quix.academy.qborrow.core.model.Soggetto;
 import it.quix.academy.qborrow.core.search.OggettoSearch;
+import it.quix.framework.core.exception.DAOFinderException;
 import it.quix.framework.util.FrameworkStringUtils;
 import it.quix.framework.util.exceptions.SystemException;
 
@@ -125,6 +126,72 @@ public class OggettoDAO extends OggettoAbstractDAO {
             String msg = "Unexpeted error on find Oggetto  on database.";
             if (log.isErrorEnabled()) {
                 log.error(msg, ex);
+            }
+            throw new SystemException(msg, ex);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(statement);
+            closeConnection(connection);
+        }
+    }
+    
+    /**
+     * Return a record of Oggetto on table oggetti
+     * 
+     * @param id
+     * @return the object Oggetto
+     * @throws DAOFinderException if no record found with passed params
+     */
+    public Oggetto getWithPrestato(Integer id) throws DAOFinderException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            // Compose the select query
+            StringBuilder query = new StringBuilder(EOL);
+            query.append(" SELECT oggetti.*, prestiti.beneficiario, prestiti.data_prestito, prestiti.data_scadenza, soggetti.nome, soggetti.cognome  ").append(
+                    EOL);
+                query.append(" FROM oggetti ").append(EOL);
+                query.append(" LEFT JOIN prestiti ON oggetti.id = prestiti.oggetto_prestato ").append(EOL);
+                query.append(" LEFT JOIN soggetti ON prestiti.beneficiario = soggetti.username ").append(EOL);
+            query.append("WHERE ID = ?  ").append(EOL);
+            // Query logging
+            if (queryLog.isInfoEnabled()) {
+                queryLog.info(query);
+            }
+            // Get connection
+            connection = getConnection();
+            // Prepare the statement
+            statement = connection.prepareStatement(query.toString());
+            // Set the parameters
+            int p = 1;
+            // Set the primary key
+            super.setParameterInteger(statement, p++, id);
+            
+            
+            // Execute the query
+            long startTime = System.currentTimeMillis();
+            rs = statement.executeQuery();
+            long endTime = System.currentTimeMillis();
+            long time = endTime - startTime;
+            String msgTime = FrameworkStringUtils.concat("Query time: ", time);
+            if (queryLog.isDebugEnabled()) {
+                queryLog.debug(msgTime);
+            }
+            if (rs.next()) {
+                Oggetto oggettoModel = buildModelFromResultSet(rs);
+                if (getParameterString(rs, "beneficiario") != null) {
+                	 oggettoModel.setOggettoPrestato(true);
+                }
+
+                return oggettoModel;
+            }
+            throw new DAOFinderException(FrameworkStringUtils.concat("Cannot find Oggetto on database with [id = ", id, "]"));
+
+        } catch (SQLException ex) {
+            String msg = FrameworkStringUtils.concat("Error on method get(Integer id) for Oggetto on database with [id = ", id, "]");
+            if (log.isErrorEnabled()) {
+                log.error(msg);
             }
             throw new SystemException(msg, ex);
         } finally {
